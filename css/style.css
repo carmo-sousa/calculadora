@@ -117,7 +117,7 @@ body {
     color: #09B813;
 }
 
-@media (max-device-width: 1080px) {
+@media (min-device-width: 1080px) {
     * {
         margin: 0;
         padding: 0;
