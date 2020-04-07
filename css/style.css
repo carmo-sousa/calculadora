@@ -83,8 +83,8 @@ body {
 }
 
 .btn-clear:active {
-    background-color: rgba(0, 0, 0, 0.3);
-  }
+  background-color: rgba(0, 0, 0, 0.3);
+}
 
 .line {
   border-bottom: solid 2px rgba(0, 0, 0, 0.3);
