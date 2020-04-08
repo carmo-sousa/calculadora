@@ -73,6 +73,10 @@ body {
   border: none;
   background-color: transparent;
   outline: none;
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+  margin-right: 15px;
   color: rgba(0, 0, 0, 0.7);
   font-size: 2em;
 }
