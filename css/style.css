@@ -47,6 +47,7 @@ body {
   position: relative;
   margin-top: 35px;
   width: 400px;
+  min-height: 550px;
 }
 
 .display {
@@ -67,6 +68,14 @@ body {
 .display .display-content p:nth-child(2) {
   color: rgba(0, 0, 0, 0.3);
   font-size: 2em;
+}
+
+#line-1 {
+  overflow: hidden;
+}
+
+#line-2 {
+  overflow: hidden;
 }
 
 .btn-clear {
@@ -179,5 +188,15 @@ body {
     display: none;
     height: 9%;
     margin: 0;
+  }
+}
+
+@media (max-height: 550px) {
+  .header {
+    display: none;
+  }
+
+  .calculadora {
+    height: 100vh;
   }
 }
