@@ -11,9 +11,10 @@ const btnParenthese = document.querySelector('#btn-parenthese');
 var display = document.querySelector('#display');
 
 const buttonsArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
-const operatorsArray = ['+', '-', 'x', '/', '%'];
+const operatorsArray = ['+', '-', 'x', '/'];
 
 btnParenthese.addEventListener('click', () => parentheses(display));
+btnPercent.addEventListener('click', () => percent(display.innerHTML, display));
 
 btnClear.addEventListener('click', () => clear(display));
 btnDelete.addEventListener('click', () => deleteOne(display));
@@ -53,7 +54,12 @@ function deleteOne(display) {
   display.innerHTML = value.join('');
 }
 
-function percent(value, display) {}
+function percent(value, display) {
+  let re = /%$|\($|\)$/g;
+  if (!re.test(value) && display.innerHTML.length != 0) {
+    setValue(display, '%');
+  }
+}
 
 function parentheses(display) {
   let re = /\+$|\-$|\x$|\/$/g;
@@ -62,7 +68,11 @@ function parentheses(display) {
 
   if (value.length === 0 || re.test(value)) {
     setValue(display, '(');
-  } else if (/[0-9%]+$/g.test(value) && !re.test(value) && array[array.length - 1] != ')') {
+  } else if (
+    /[0-9%]+$/g.test(value) &&
+    !re.test(value) &&
+    array[array.length - 1] != ')'
+  ) {
     setValue(display, ')');
   }
 }
