@@ -63,6 +63,7 @@ body {
   color: rgba(0, 0, 0, 0.5);
   font-size: 2.5em;
   margin-bottom: 0;
+  overflow: hidden;
 }
 
 .display .display-content p:nth-child(2) {
