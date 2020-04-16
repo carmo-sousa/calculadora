@@ -7,6 +7,8 @@ const btnMultiply = document.querySelector('#btn-multiply');
 const btnDivide = document.querySelector('#btn-divide');
 const btnPercent = document.querySelector('#btn-percent');
 const btnParenthese = document.querySelector('#btn-parenthese');
+const btnZero = document.querySelector('#btn-zero');
+const btnVirgula = document.querySelector('#btn-virgula');
 
 var display = document.querySelector('#display');
 
@@ -15,9 +17,10 @@ const operatorsArray = ['+', '-', 'x', '/'];
 
 btnParenthese.addEventListener('click', () => parentheses(display));
 btnPercent.addEventListener('click', () => percent(display.innerHTML, display));
-
+btnZero.addEventListener('click', () => zero(display));
 btnClear.addEventListener('click', () => clear(display));
 btnDelete.addEventListener('click', () => deleteOne(display));
+btnVirgula.addEventListener('click', () => virgula(display));
 
 buttons.forEach(button => {
   if (buttonsArray.indexOf(button.innerHTML.trim(), 0) >= 0) {
@@ -77,28 +80,26 @@ function parentheses(display) {
   }
 }
 
-/*
-  let re = /([\(*\)*])/g;
-  let control = /\+$|\-$|\x$|\/$/g;
-  let value = display.innerHTML;
-  let array = value.match(re);
-  console.log(array);
+function zero(display) {
+  let re = /.+,$/g;
+  let content = display.innerHTML.trim();
 
-  if (re.test(value)) {
-    if (array[array.length - 1] == '(') {
-      if (value.search(/\([0-9]+/g) >= 0) {
-        if (control.test(value)) {
-          setValue(display, '(');
-        }
-      }
-    } else if (array[array.length - 1] == ')') {
-      if (/\)$/g.test(value)) {
-        setValue(display, 'x(');
-      } else if (/[0-9]+$/g.test(value)) {
-        setValue(display, ')');
-      }
-    }
-  } else if (!re.test(value) && value.length == 0) {
-    setValue(display, '(');
+  if (content.length == 0) {
+    setValue(display, '0');
+  } else if (re.test(content)) {
+    setValue(display, '0');
   }
-*/
+}
+
+function virgula(display) {
+  let content = display.innerHTML.trim();
+  let re = /[\+\-\x\/]$/g;
+
+  if (content.length == 0 || re.test(content)) {
+    setValue(display, '0,');
+  } else if (/[\+\-\x\/][0-9]+[^\,][0-9]+?$/g.test(content)) {
+    setValue(display, ',');
+  } else if (/^[0-9]+$/g.test(content)) {
+    setValue(display, ',');
+  }
+}
