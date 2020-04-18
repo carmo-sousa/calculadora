@@ -9,6 +9,8 @@ const btnPercent = document.querySelector('#btn-percent');
 const btnParenthese = document.querySelector('#btn-parenthese');
 const btnZero = document.querySelector('#btn-zero');
 const btnVirgula = document.querySelector('#btn-virgula');
+const btnPlusOrMinus = document.querySelector('#btn-plusMinus');
+const btnEqual = document.querySelector('#btn-equal');
 
 var display = document.querySelector('#display');
 
@@ -21,6 +23,8 @@ btnZero.addEventListener('click', () => zero(display));
 btnClear.addEventListener('click', () => clear(display));
 btnDelete.addEventListener('click', () => deleteOne(display));
 btnVirgula.addEventListener('click', () => virgula(display));
+btnPlusOrMinus.addEventListener('click', () => plusOrMinus(display));
+btnEqual.addEventListener('click', () => equal(display));
 
 buttons.forEach(button => {
   if (buttonsArray.indexOf(button.innerHTML.trim(), 0) >= 0) {
@@ -35,7 +39,11 @@ buttons.forEach(button => {
 });
 
 function setValue(display, value) {
-  display.innerHTML += value;
+  if (display.innerHTML == '0') {
+    display.innerHTML = value;
+  } else if (display.innerHTML.length < 16) {
+    display.innerHTML += value;
+  }
 }
 
 function clear(display) {
@@ -43,7 +51,7 @@ function clear(display) {
 }
 
 function setOperators(display, value) {
-  let re = /\+$|\-$|\x$|\/$/g;
+  let re = /\+$|\-$|x$|\/$/g;
   let content = display.innerHTML.trim();
 
   if (content.search(re) < 0 && content.length != 0) {
@@ -65,7 +73,7 @@ function percent(value, display) {
 }
 
 function parentheses(display) {
-  let re = /\+$|\-$|\x$|\/$/g;
+  let re = /\+$|\-$|x$|\/$/g;
   let value = display.innerHTML.trim();
   let array = value.match(/([\(*\)*])/g);
 
@@ -84,22 +92,46 @@ function zero(display) {
   let re = /.+,$/g;
   let content = display.innerHTML.trim();
 
-  if (content.length == 0) {
-    setValue(display, '0');
-  } else if (re.test(content)) {
+  if (
+    content.length == 0 ||
+    /^[1-9]/g.test(content) ||
+    /[,0-9]$/g.test(content)
+  ) {
     setValue(display, '0');
   }
 }
 
 function virgula(display) {
   let content = display.innerHTML.trim();
-  let re = /[\+\-\x\/]$/g;
+  let re = /[\+\-x\/]$/g;
 
   if (content.length == 0 || re.test(content)) {
     setValue(display, '0,');
-  } else if (/[\+\-\x\/][0-9]+[^\,][0-9]+?$/g.test(content)) {
+  } else if (/[\+\-x\/][0-9]+$/g.test(content)) {
     setValue(display, ',');
   } else if (/^[0-9]+$/g.test(content)) {
     setValue(display, ',');
   }
+}
+
+function plusOrMinus(display) {
+  let content = display.innerHTML;
+  let re = /([0-9]+)$/g;
+
+  if (/\(-[0-9]*$/g.test(content)) {
+    display.innerHTML = display.innerHTML.replace(/\(-([0-9]*)/g, '$1');
+  } else if (display.innerHTML.length == 0 || /[\+\-x\/]$/g.test(content)) {
+    setValue(display, '(-');
+  } else {
+    display.innerHTML = content.replace(re, '(-$1');
+  }
+}
+
+function equal(display) {
+  let content = display.innerHTML.trim();
+  content = content.replace(',', '.');
+  content = content.replace('x', '*');
+  content = eval(content);
+
+  display.innerHTML = content;
 }
