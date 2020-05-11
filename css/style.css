@@ -206,9 +206,3 @@ body {
     height: 100vh;
   }
 }
-
-@media (orientation: landscape) {
-  .calculadora {
-    background-color: #03a007;
-  }
-}

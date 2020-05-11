@@ -47,7 +47,7 @@ function setValue(display, value) {
 }
 
 function clear(display) {
-  display.textContent = '';
+  display.textContent = '0';
 }
 
 function setOperators(display, value) {
