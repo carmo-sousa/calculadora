@@ -150,7 +150,7 @@ body {
   color: #09b813;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 350px) and (min-width: 300px) {
   * {
     margin: 0;
     padding: 0;
