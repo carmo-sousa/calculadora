@@ -9,3 +9,6 @@ nas tecnologias webs.
 - HTML5
 - CSS3
 - Javascript
+
+## TODO list
+- [ ] Converter em um pwa.
