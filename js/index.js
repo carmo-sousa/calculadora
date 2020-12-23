@@ -6,7 +6,7 @@ const btnMinus = document.querySelector('#btn-minus');
 const btnMultiply = document.querySelector('#btn-multiply');
 const btnDivide = document.querySelector('#btn-divide');
 const btnPercent = document.querySelector('#btn-percent');
-const btnParenthese = document.querySelector('#btn-parenthese');
+const btnParentheses = document.querySelector('#btn-parentheses');
 const btnZero = document.querySelector('#btn-zero');
 const btnVirgula = document.querySelector('#btn-virgula');
 const btnPlusOrMinus = document.querySelector('#btn-plusMinus');
@@ -17,7 +17,7 @@ var display = document.querySelector('#display');
 const buttonsArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 const operatorsArray = ['+', '-', 'x', '/'];
 
-btnParenthese.addEventListener('click', () => parentheses(display));
+btnParentheses.addEventListener('click', () => parentheses(display));
 btnPercent.addEventListener('click', () => percent(display.innerHTML, display));
 btnZero.addEventListener('click', () => zero(display));
 btnClear.addEventListener('click', () => clear(display));
@@ -60,7 +60,15 @@ function setOperators(display, value) {
 }
 
 function deleteOne(display) {
+  if (display.innerHTML == '0') {
+    return
+  }
   let array = display.innerHTML.trim().split('');
+
+  if (array.length == 1) {
+    console.log("Igual a um")
+    return display.innerHTML = '0';
+  }
   let value = array.slice(0, array.length - 1);
   display.innerHTML = value.join('');
 }

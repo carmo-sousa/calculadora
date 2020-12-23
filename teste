@@ -1,0 +1,17 @@
+def luhn(card_number: str) -> bool:
+    number = int(card_number[:-1])
+    length = len(card_number)
+    parity = length % 2
+
+    for i in range(length - 2):
+        digit = int(card_number[i])
+
+        if i % 2 == parity:
+            digit = digit * 2
+
+        if digit > 9:
+            digit -= 9
+
+        number = number + digit
+
+    return number % 10 == 0
